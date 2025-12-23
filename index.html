@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamzidan.com | The Mothership</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & BASIC SETUP --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh; /* Allow scrolling */
+            width: 100vw;
+            position: relative;
+        }
+
+        /* --- SPACE BACKGROUND ANIMATION --- */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .stars, .stars2, .stars3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+
+        .stars { box-shadow: 100px 200px #FFF, 500px 300px #FFF, 800px 100px #FFF, 1200px 400px #FFF, 300px 800px #FFF, 900px 600px #FFF, 50px 500px #FFF, 1000px 200px #FFF; animation: twinkle 3s infinite alternate; width: 2px; height: 2px; }
+        .stars2 { box-shadow: 150px 250px #8a2be2, 550px 350px #8a2be2, 850px 150px #8a2be2, 1250px 450px #8a2be2; animation: twinkle 5s infinite alternate-reverse; width: 3px; height: 3px; opacity: 0.7; }
+        .stars3 { box-shadow: 50px 50px #00ffff, 1150px 650px #00ffff, 450px 150px #00ffff; animation: twinkle 7s infinite alternate; width: 4px; height: 4px; opacity: 0.5; }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* --- GRADIENT ORB --- */
+        .orb {
+            position: fixed; /* Fixed agar tetap di tengah saat scroll */
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(76, 29, 149, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            animation: pulse 15s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.3; }
+        }
+
+        /* --- HEADER & HAMBURGER MENU --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.8), transparent);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            z-index: 1002;
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            width: 35px;
+            height: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1001; 
+        }
+
+        .bar {
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            pointer-events: none;
+        }
+
+        .menu-toggle.active .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 9px); background-color: #ff4d4d; }
+        .menu-toggle.active .bar:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        .menu-toggle.active .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -9px); background-color: #ff4d4d; }
+
+        /* --- FULLSCREEN MENU OVERLAY --- */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 8, 0.96);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 999;
+            cursor: pointer;
+        }
+
+        .nav-overlay.open { opacity: 1; visibility: visible; }
+
+        .nav-links {
+            list-style: none;
+            text-align: center;
+            width: 100%;
+            pointer-events: none; 
+        }
+
+        .nav-links li {
+            margin: 20px 0;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.5s ease;
+            pointer-events: auto;
+        }
+
+        /* Staggered Animation Loops */
+        .nav-overlay.open .nav-links li:nth-child(1) { transition-delay: 0.1s; transform: translateY(0); opacity: 1; }
+        .nav-overlay.open .nav-links li:nth-child(2) { transition-delay: 0.15s; transform: translateY(0); opacity: 1; }
+        .nav-overlay.open .nav-links li:nth-child(3) { transition-delay: 0.2s; transform: translateY(0); opacity: 1; }
+        .nav-overlay.open .nav-links li:nth-child(4) { transition-delay: 0.25s; transform: translateY(0); opacity: 1; }
+        .nav-overlay.open .nav-links li:nth-child(5) { transition-delay: 0.3s; transform: translateY(0); opacity: 1; }
+        .nav-overlay.open .nav-links li:nth-child(6) { transition-delay: 0.35s; transform: translateY(0); opacity: 1; }
+        .nav-overlay.open .nav-links li:nth-child(7) { transition-delay: 0.4s; transform: translateY(0); opacity: 1; }
+
+        .nav-links a {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+            padding: 10px 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 50%;
+            background-color: #00ffff;
+            transition: width 0.3s ease, left 0.3s ease;
+            box-shadow: 0 0 10px #00ffff;
+        }
+
+        .nav-links a:hover {
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        .nav-links a:hover::after { width: 80%; left: 10%; }
+
+        /* --- MAIN CONTAINER --- */
+        .main-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-card {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            max-width: 90%;
+            width: 650px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.2); }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            letter-spacing: 4px;
+        }
+
+        p.subtitle {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .cta-btn {
+            padding: 15px 40px;
+            border: 1px solid rgba(255,255,255,0.4);
+            background: transparent;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 2px;
+            border-radius: 5px;
+        }
+
+        .cta-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- SCROLL INDICATOR --- */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        .mouse {
+            width: 25px;
+            height: 40px;
+            border: 2px solid #fff;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            padding-top: 5px;
+        }
+
+        .wheel {
+            width: 3px;
+            height: 8px;
+            background: #fff;
+            border-radius: 2px;
+            animation: scroll 1.5s infinite;
+        }
+
+        .scroll-text {
+            margin-top: 10px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+        @keyframes scroll {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(15px); }
+        }
+
+        /* --- ABOUT SECTION (THE ANOMALY) --- */
+        .about-section {
+            min-height: 80vh; /* Hampir full screen tapi kasih space */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .about-card {
+            max-width: 800px;
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 40px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Garis dekorasi aesthetic */
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #00ffff, transparent);
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        .about-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #00ffff;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+            display: inline-block;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d1d1d1;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .quote {
+            font-style: italic;
+            border-left: 3px solid #ff4d4d;
+            padding-left: 20px;
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            width: 100%;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .nav-links a { font-size: 1.2rem; margin: 5px 0; }
+            .orb { width: 300px; height: 300px; }
+            .about-card { padding: 40px 20px; }
+            .about-title { font-size: 1.5rem; }
+            .about-text { font-size: 0.95rem; }
+            header { padding: 20px 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+    <div class="orb"></div>
+
+    <header>
+        <a href="#" class="logo">HAMZIDAN</a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </header>
+
+    <div class="nav-overlay" id="nav-overlay">
+        <ul class="nav-links">
+            <li><a href="https://zidanplan.vercel.app" target="_blank">ZIDAN PLAN</a></li>
+            <li><a href="https://mygaleriwithmygirl.vercel.app" target="_blank">ZIDAN GALERI</a></li>
+            <li><a href="https://teori-tentang-bulan.vercel.app/" target="_blank">KONSPIRASI BULAN</a></li>
+            <li><a href="https://cinta-itu-suci.vercel.app/" target="_blank">CINTA ITU SUCI</a></li>
+            <li><a href="https://cek-jodoh-flask.vercel.app/" target="_blank">CEK JODOH</a></li>
+            <li><a href="https://fahrulhamzidanpulungan.vercel.app/" target="_blank">DUNIA CUKUR</a></li>
+            <li><a href="https://fahrul-hamzidan-pulungan.vercel.app/" target="_blank">DUNIA IT</a></li>
+        </ul>
+    </div>
+
+    <div class="main-container">
+        
+        <section class="hero-section">
+            <div class="hero-card">
+                <h1>HAMZIDAN</h1>
+                <p class="subtitle">THE MOTHERSHIP OF CHAOS</p>
+                <a href="#" class="cta-btn" id="explore-btn">JELAJAHI ORBIT</a>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <div class="scroll-text">SCROLL</div>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="about-card">
+                <h2 class="about-title">THE ORIGIN</h2>
+                
+                <p class="about-text">
+                    Selamat datang di <span class="highlight">Hamzidan.com</span>, titik nol dari semesta digital yang saya bangun. Ini bukan sekadar portofolio, melainkan 
+                    <span class="highlight">Induk Semesta (Mothership)</span> yang menampung seluruh planet eksperimen, kegagalan, dan ide-ide liar saya.
+                </p>
+
+                <p class="about-text">
+                    Saya bukanlah penyihir kode, bukan pula insinyur perangkat lunak dari Silicon Valley. Saya hanyalah 
+                    <span class="highlight">seorang manusia biasa</span>—tak luput dari dosa, penuh khilaf, dan sering lupa titik koma (;).
+                </p>
+
+                <p class="about-text">
+                    Saya tidak bekerja di industri IT. Hobi saya hanyalah mengerjakan hal-hal iseng yang 
+                    bukan mendatangkan keuntungan, malah seringkali membuat kepala puyeng. Namun di situlah seninya: 
+                    mengubah kebingungan menjadi sebuah karya yang (mungkin) bisa dinikmati.
+                </p>
+
+                <div class="quote">
+                    "Creating complexity out of curiosity, just to see what happens when you press the red button."
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2024 HAMZIDAN UNIVERSE. BUILT WITH CURIOSITY & MIGRAINE.
+        </footer>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navOverlay = document.getElementById('nav-overlay');
+        const exploreBtn = document.getElementById('explore-btn');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function toggleMenu() {
+            const isActive = menuToggle.classList.contains('active');
+            if (isActive) {
+                menuToggle.classList.remove('active');
+                navOverlay.classList.remove('open');
+            } else {
+                menuToggle.classList.add('active');
+                navOverlay.classList.add('open');
+            }
+        }
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+
+        exploreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
+        });
+
+        navOverlay.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'A') {
+                toggleMenu();
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(() => {
+                    toggleMenu();
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
