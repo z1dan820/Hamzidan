@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -27,7 +28,7 @@
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
-            min-height: 100vh; /* Allow scrolling */
+            min-height: 100vh;
             width: 100vw;
             position: relative;
         }
@@ -63,7 +64,7 @@
 
         /* --- GRADIENT ORB --- */
         .orb {
-            position: fixed; /* Fixed agar tetap di tengah saat scroll */
+            position: fixed;
             width: 700px;
             height: 700px;
             background: radial-gradient(circle, rgba(76, 29, 149, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
@@ -92,7 +93,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.8), transparent);
+            background: linear-gradient(to bottom, rgba(5,5,5,0.9), transparent);
         }
 
         .logo {
@@ -105,109 +106,6 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
             z-index: 1002;
         }
-
-        .menu-toggle {
-            cursor: pointer;
-            width: 35px;
-            height: 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: 1001; 
-        }
-
-        .bar {
-            width: 100%;
-            height: 3px;
-            background-color: #fff;
-            border-radius: 2px;
-            transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
-            pointer-events: none;
-        }
-
-        .menu-toggle.active .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 9px); background-color: #ff4d4d; }
-        .menu-toggle.active .bar:nth-child(2) { opacity: 0; transform: translateX(-20px); }
-        .menu-toggle.active .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -9px); background-color: #ff4d4d; }
-
-        /* --- FULLSCREEN MENU OVERLAY --- */
-        .nav-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5, 5, 8, 0.96);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-            z-index: 999;
-            cursor: pointer;
-        }
-
-        .nav-overlay.open { opacity: 1; visibility: visible; }
-
-        .nav-links {
-            list-style: none;
-            text-align: center;
-            width: 100%;
-            pointer-events: none; 
-        }
-
-        .nav-links li {
-            margin: 20px 0;
-            transform: translateY(30px);
-            opacity: 0;
-            transition: all 0.5s ease;
-            pointer-events: auto;
-        }
-
-        /* Staggered Animation Loops */
-        .nav-overlay.open .nav-links li:nth-child(1) { transition-delay: 0.1s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(2) { transition-delay: 0.15s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(3) { transition-delay: 0.2s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(4) { transition-delay: 0.25s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(5) { transition-delay: 0.3s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(6) { transition-delay: 0.35s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(7) { transition-delay: 0.4s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(8) { transition-delay: 0.4s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(9) { transition-delay: 0.4s; transform: translateY(0); opacity: 1; }
-        .nav-overlay.open .nav-links li:nth-child(10) { transition-delay: 0.4s; transform: translateY(0); opacity: 1; }
-        .nav-links a {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: #fff;
-            text-decoration: none;
-            position: relative;
-            padding: 10px 20px;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 5px;
-            left: 50%;
-            background-color: #00ffff;
-            transition: width 0.3s ease, left 0.3s ease;
-            box-shadow: 0 0 10px #00ffff;
-        }
-
-        .nav-links a:hover {
-            color: #00ffff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-            transform: scale(1.05);
-        }
-
-        .nav-links a:hover::after { width: 80%; left: 10%; }
 
         /* --- MAIN CONTAINER --- */
         .main-container {
@@ -334,14 +232,13 @@
             100% { opacity: 0; transform: translateY(15px); }
         }
 
-        /* --- ABOUT SECTION (THE ANOMALY) --- */
+        /* --- ABOUT SECTION --- */
         .about-section {
-            min-height: 80vh; /* Hampir full screen tapi kasih space */
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 100px 20px;
+            padding: 80px 20px;
             position: relative;
         }
 
@@ -350,13 +247,13 @@
             background: rgba(10, 10, 15, 0.6);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 60px 40px;
+            padding: 40px;
             border-radius: 20px;
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
 
-        /* Garis dekorasi aesthetic */
         .about-card::before {
             content: '';
             position: absolute;
@@ -368,23 +265,21 @@
             box-shadow: 0 0 20px #00ffff;
         }
 
-        .about-title {
+        .section-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 2rem;
             color: #00ffff;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 5px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 20px;
             display: inline-block;
         }
 
         .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1rem;
+            line-height: 1.6;
             color: #d1d1d1;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             font-weight: 300;
         }
 
@@ -394,13 +289,97 @@
             text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
-        .quote {
-            font-style: italic;
-            border-left: 3px solid #ff4d4d;
-            padding-left: 20px;
-            margin-top: 30px;
+        /* --- PROJECTS / PORTFOLIO GRID SECTION --- */
+        .projects-section {
+            width: 100%;
+            padding: 50px 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .projects-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .project-card {
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.15);
+        }
+
+        .thumbnail-container {
+            width: 100%;
+            height: 180px;
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .thumbnail-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            opacity: 0.8;
+        }
+
+        .project-card:hover .thumbnail-container img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .project-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .project-desc {
+            font-size: 0.85rem;
             color: #aaa;
-            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .project-link-icon {
+            align-self: flex-end;
+            margin-top: 15px;
+            color: #00ffff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         /* --- FOOTER --- */
@@ -412,17 +391,17 @@
             letter-spacing: 2px;
             border-top: 1px solid rgba(255,255,255,0.05);
             width: 100%;
+            margin-top: 50px;
         }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
-            .nav-links a { font-size: 1.2rem; margin: 5px 0; }
             .orb { width: 300px; height: 300px; }
-            .about-card { padding: 40px 20px; }
-            .about-title { font-size: 1.5rem; }
-            .about-text { font-size: 0.95rem; }
+            .about-card { padding: 30px 20px; }
+            .section-title { font-size: 1.5rem; }
             header { padding: 20px 25px; }
+            .project-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -437,27 +416,7 @@
 
     <header>
         <a href="#" class="logo">HAMZIDAN</a>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
     </header>
-
-    <div class="nav-overlay" id="nav-overlay">
-        <ul class="nav-links">
-            <li><a href="https://zidanplan.vercel.app" target="_blank">ZIDAN PLAN</a></li>
-            <li><a href="https://mygaleriwithmygirl.vercel.app" target="_blank">ZIDAN GALERI</a></li>
-            <li><a href="https://teori-tentang-bulan.vercel.app/" target="_blank">KONSPIRASI BULAN</a></li>
-            <li><a href="https://cinta-itu-suci.vercel.app/" target="_blank">CINTA ITU SUCI</a></li>
-            <li><a href="https://cek-jodoh-flask.vercel.app/" target="_blank">CEK JODOH</a></li>
-            <li><a href="https://fahrulhamzidanpulungan.vercel.app/" target="_blank">DUNIA CUKUR</a></li>
-            <li><a href="https://fahrul-hamzidan-pulungan.vercel.app/" target="_blank">DUNIA IT</a></li>
-            <li><a href="https://cctv-global.vercel.app/" target="_blank">CCTV GLOBAL</a></li>
-            <li><a href="https://hazipos.vercel.app/" target="_blank">HAZIPOS</a></li>
-            <li><a href="https://hazivault.vercel.app/" target="_blank">HAZIVAULT</a></li>
-        </ul>
-    </div>
 
     <div class="main-container">
         
@@ -465,7 +424,7 @@
             <div class="hero-card">
                 <h1>HAMZIDAN</h1>
                 <p class="subtitle">THE MOTHERSHIP OF CHAOS</p>
-                <a href="#" class="cta-btn" id="explore-btn">JELAJAHI ORBIT</a>
+                <a href="#projects" class="cta-btn" id="explore-btn">LIHAT EKSPERIMEN</a>
             </div>
 
             <div class="scroll-indicator">
@@ -478,76 +437,146 @@
 
         <section class="about-section" id="about">
             <div class="about-card">
-                <h2 class="about-title">THE ORIGIN</h2>
+                <h2 class="section-title">THE ORIGIN</h2>
+                <p class="about-text">
+                    Selamat datang di <span class="highlight">Hamzidan.com</span>, titik nol dari semesta digital yang saya bangun. Ini adalah <span class="highlight">Induk Semesta (Mothership)</span> yang menampung seluruh planet eksperimen saya.
+                </p>
+                <p class="about-text">
+                    Saya bukanlah penyihir kode, hanya manusia biasa yang sering lupa titik koma (;). Hobi saya mengerjakan hal iseng yang membuat kepala puyeng.
+                </p>
+            </div>
+        </section>
+
+        <section class="projects-section" id="projects">
+            <div class="projects-header">
+                <h2 class="section-title">THE PLANETS</h2>
+                <p class="subtitle">DAFTAR KOLONI DIGITAL</p>
+            </div>
+
+            <div class="project-grid">
                 
-                <p class="about-text">
-                    Selamat datang di <span class="highlight">Hamzidan.com</span>, titik nol dari semesta digital yang saya bangun. Ini bukan sekadar portofolio, melainkan 
-                    <span class="highlight">Induk Semesta (Mothership)</span> yang menampung seluruh planet eksperimen, kegagalan, dan ide-ide liar saya.
-                </p>
+                <a href="https://zidanplan.vercel.app" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/222/00ffff?text=ZIDAN+PLAN" alt="Zidan Plan">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">ZIDAN PLAN</h3>
+                        <p class="project-desc">Perencanaan dan roadmap masa depan.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
 
-                <p class="about-text">
-                    Saya bukanlah penyihir kode, bukan pula insinyur perangkat lunak dari Silicon Valley. Saya hanyalah 
-                    <span class="highlight">seorang manusia biasa</span>—tak luput dari dosa, penuh khilaf, dan sering lupa titik koma (;).
-                </p>
+                <a href="https://mygaleriwithmygirl.vercel.app" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/222/ff4d4d?text=ZIDAN+GALERI" alt="Zidan Galeri">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">ZIDAN GALERI</h3>
+                        <p class="project-desc">Koleksi memori visual yang berharga.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
 
-                <p class="about-text">
-                    Saya tidak bekerja di industri IT. Hobi saya hanyalah mengerjakan hal-hal iseng yang 
-                    bukan mendatangkan keuntungan, malah seringkali membuat kepala puyeng. Namun di situlah seninya: 
-                    mengubah kebingungan menjadi sebuah karya yang (mungkin) bisa dinikmati.
-                </p>
+                <a href="https://teori-tentang-bulan.vercel.app/" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/111/eee?text=KONSPIRASI+BULAN" alt="Konspirasi Bulan">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">KONSPIRASI BULAN</h3>
+                        <p class="project-desc">Teori-teori liar tentang satelit bumi.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
 
-                <div class="quote">
-                    "Creating complexity out of curiosity, just to see what happens when you press the red button."
-                </div>
+                <a href="https://cinta-itu-suci.vercel.app/" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/300/fff?text=CINTA+ITU+SUCI" alt="Cinta Itu Suci">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">CINTA ITU SUCI</h3>
+                        <p class="project-desc">Sebuah manifesto tentang perasaan.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://cek-jodoh-flask.vercel.app/" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/222/ff00ff?text=CEK+JODOH" alt="Cek Jodoh">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">CEK JODOH</h3>
+                        <p class="project-desc">Aplikasi Flask untuk meramal pasangan.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://fahrulhamzidanpulungan.vercel.app/" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/222/orange?text=DUNIA+CUKUR" alt="Dunia Cukur">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">DUNIA CUKUR</h3>
+                        <p class="project-desc">Keahlian dan seni memotong rambut.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://fahrul-hamzidan-pulungan.vercel.app/" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/000/00ff00?text=DUNIA+IT" alt="Dunia IT">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">DUNIA IT</h3>
+                        <p class="project-desc">Jejak digital di dunia teknologi.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://cctv-global.vercel.app/" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/050505/red?text=CCTV+GLOBAL" alt="CCTV Global">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">CCTV GLOBAL</h3>
+                        <p class="project-desc">Pantau dunia lewat mata kamera.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://hazipos.vercel.app/" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/222/00ffff?text=HAZIPOS" alt="HaziPOS">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">HAZIPOS</h3>
+                        <p class="project-desc">Point of Sales System berbasis Web.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://hazivault.vercel.app/" target="_blank" class="project-card">
+                    <div class="thumbnail-container">
+                        <img src="https://placehold.co/600x400/333/gold?text=HAZIVAULT" alt="HaziVault">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">HAZIVAULT</h3>
+                        <p class="project-desc">Penyimpanan data aman dan pribadi.</p>
+                        <span class="project-link-icon">VISIT &rarr;</span>
+                    </div>
+                </a>
+
             </div>
         </section>
 
         <footer>
-            &copy; 2024 HAMZIDAN UNIVERSE. BUILT WITH CURIOSITY & MIGRAINE.
-        </footer>
+    &copy; <span id="year"></span> HAMZIDAN UNIVERSE. BUILT WITH CURIOSITY & MIGRAINE.
+</footer>
+
     </div>
-
     <script>
-        const menuToggle = document.getElementById('mobile-menu');
-        const navOverlay = document.getElementById('nav-overlay');
-        const exploreBtn = document.getElementById('explore-btn');
-        const navLinks = document.querySelectorAll('.nav-links a');
+    // Mengambil tahun saat ini secara otomatis
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
-        function toggleMenu() {
-            const isActive = menuToggle.classList.contains('active');
-            if (isActive) {
-                menuToggle.classList.remove('active');
-                navOverlay.classList.remove('open');
-            } else {
-                menuToggle.classList.add('active');
-                navOverlay.classList.add('open');
-            }
-        }
-
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMenu();
-        });
-
-        exploreBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMenu();
-        });
-
-        navOverlay.addEventListener('click', (e) => {
-            if (e.target.tagName !== 'A') {
-                toggleMenu();
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                setTimeout(() => {
-                    toggleMenu();
-                }, 300);
-            });
-        });
-    </script>
 </body>
 </html>
